@@ -11,7 +11,7 @@ class CommentController extends Controller
 {
     public function store(AddCommentRequest $request, Post $post)
     {
-        $post->comments()->create([$request->only('subject', 'body')]);
+        $post->comments()->create($request->only('subject', 'body'));
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }

@@ -17,7 +17,8 @@ sub.onclick = async function (ev) {
     this.innerHTML = '<i class="fa fa-circle-o-notch fa-spin"></i> loading...'
     try {
         const response = await axios.post(`/api/posts/${id}/comments/post`, {subject, body});
-        this.parent.innerHTML = '<p>Ваш комментарий успешно сохранен</p>'
+        console.log(this.parent);
+        this.parentNode.parentNode.innerHTML =  '<p>Ваш комментарий успешно сохранен</p>';
         return true;
     } catch (e) {
         this.innerHTML = 'Отправить';

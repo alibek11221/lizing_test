@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'posts', 'as' => 'posts.'], function (){
     Route::post('/{postId}/likes/increment', [\App\Http\Controllers\Api\PostLikesController::class, 'increment']);
     Route::post('/{postId}/views/increment', [\App\Http\Controllers\Api\PostViewController::class, 'increment']);
-    Route::post('/{postId}/comments/post', [\App\Http\Controllers\Api\CommentController::class, 'store']);
+    Route::post('/{post}/comments/post', [\App\Http\Controllers\Api\CommentController::class, 'store']);
 });
