@@ -15,6 +15,9 @@
             @empty
                 <p>Нет ничего</p>
             @endforelse
+            <div class="d-flex justify-content-center">
+                {!! $posts->links() !!}
+            </div>
         </div>
     </div>
 
