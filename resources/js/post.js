@@ -8,7 +8,6 @@ setTimeout(async () => {
     }
 }, 5000);
 const sub = document.querySelector('#comment_sub_btn');
-console.log(sub);
 sub.onclick = async function (ev) {
     ev.preventDefault();
     const subject = document.querySelector('#subject').value;
@@ -17,7 +16,6 @@ sub.onclick = async function (ev) {
     this.innerHTML = '<i class="fa fa-circle-o-notch fa-spin"></i> loading...'
     try {
         const response = await axios.post(`/api/posts/${id}/comments/post`, {subject, body});
-        console.log(this.parent);
         this.parentNode.parentNode.innerHTML =  '<p>Ваш комментарий успешно сохранен</p>';
         return true;
     } catch (e) {
