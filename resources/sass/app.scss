@@ -1,0 +1,17 @@
+// Bootstrap
+@import "bootstrap";
+
+.navbar{
+    .nav-item{
+        &.active{
+            display: block;
+            .nav-link{
+                color: #ffffff;
+            }
+        }
+    }
+}
+
+.badge-primary{
+    background-color: #007bff;
+}
