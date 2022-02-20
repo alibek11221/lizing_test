@@ -19,6 +19,6 @@ Route::group(['prefix'=>'posts', 'as'=>'posts.'], function (){
     Route::get('/{post}', [\App\Http\Controllers\PostController::class, 'show'])->name('show');
 });
 Route::group(['prefix'=>'tags', 'as'=> 'tags.'], function (){
-    Route::get('/{tag}/posts', [\App\Http\Controllers\TagsController::class, 'postsByTag'])->name('posts');
+    Route::get('/{tag}/posts', [\App\Http\Controllers\PostController::class, 'byTag'])->name('posts');
 });
 

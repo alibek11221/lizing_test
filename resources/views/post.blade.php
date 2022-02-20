@@ -9,16 +9,7 @@
                     <img src="{{$post->image_url}}" class="img-fluid mb30">
                     <div class="post-content">
                         <h3>{{$post->title}}</h3>
-                        <div class="d-flex m-3">
-                            <div class="text-center m-4 d-flex justify-content-center flex-column">
-                                <button  data-target="{{$post->id}}" class="btn like_button"><i class="fa fa-heart"></i></button>
-                                <p class="likes_counter"  data-target="{{$post->id}}">{{$post->likes_presenter}}</p>
-                            </div>
-                            <div class="text-center m-4 d-flex justify-content-center flex-column">
-                                <button data-target="{{$post->id}}" class="btn viewed_button"><i class="fa fa-eye"></i></button>
-                                <p class="views_counter"  data-target="{{$post->id}}">{{$post->views_presenter}}</p>
-                            </div>
-                        </div>
+                        @include('widgets.post-counters', $post)
                         <p> {{$post->content}} </p>
                         <hr class="mb40">
                         <h4 class="mb40 text-uppercase font500">Post a comment</h4>

@@ -4,9 +4,9 @@
     <div class="d-flex justify-content-between">
         <aside class="w-25">
             @forelse($tags as $tag)
-                <a href="{{route('tags.posts', $tag->id)}}" class="badge badge-pill badge-primary">{{$tag->name}}</a>
+                <a href="{{route('tags.posts', $tag->name)}}" class="badge badge-pill badge-primary">{{$tag->name}}</a>
             @empty
-                <p> нет ничего</p>
+                <p>Теги не найдены</p>
             @endforelse
         </aside>
         <div class="d-flex w-75 justify-content-around flex-column">

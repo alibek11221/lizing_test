@@ -16,7 +16,7 @@ class CreatePostTagTable extends Migration
         Schema::create('post_tag', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Post::class);
-            $table->foreignIdFor(\App\Models\Tag::class);
+            $table->foreignIdFor(\App\Models\Tag::class, 'tag_name');
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::query()->latest()->with('tags')->paginate(Post::BIG_PAGINATE_SIZE);
+        $posts = Post::query()->latestWithTags()->paginate(Post::BIG_PAGINATE_SIZE);
         $tags = Tag::all();
         return view('post-catalog', ['posts'=>$posts, 'tags'=>$tags]);
     }
@@ -18,5 +18,11 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return view('post', ['post'=>$post]);
+    }
+
+    public function byTag(Tag $tag)
+    {
+        $posts = Post::query()->ofTag($tag)->paginate(Post::BIG_PAGINATE_SIZE);
+        return view('post-catalog', ['tags' => [$tag], 'posts' => $posts]);
     }
 }

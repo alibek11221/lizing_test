@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 
@@ -21,15 +19,19 @@ use Illuminate\Support\Facades\Cache;
  * @property string $content
  * @property int $likes_counter
  * @property int $views_counter
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read int|null $comments_count
+ * @property-read string $likes_presenter
+ * @property-read string $short_text
+ * @property-read string $views_presenter
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tag[] $tags
  * @property-read int|null $tags_count
  * @method static \Database\Factories\PostFactory factory(...$parameters)
  * @method static Builder|Post newModelQuery()
  * @method static Builder|Post newQuery()
+ * @method static Builder|Post ofTag($tag)
  * @method static Builder|Post query()
  * @method static Builder|Post whereContent($value)
  * @method static Builder|Post whereCreatedAt($value)
@@ -39,7 +41,8 @@ use Illuminate\Support\Facades\Cache;
  * @method static Builder|Post whereLikesCounter($value)
  * @method static Builder|Post whereUpdatedAt($value)
  * @method static Builder|Post whereViewsCounter($value)
- * @mixin Eloquent
+ * @method static Builder|Post latestWithTags()
+ * @mixin \Eloquent
  */
 class Post extends Model
 {
@@ -75,7 +78,24 @@ class Post extends Model
         if (($counters = Cache::get(self::VIEWS_COUNTER_CACHE_TAG)) && array_key_exists($this->id, $counters)) {
             return $counters[$this->id];
         }
-        return $this->views_counter;
+        return \Str::limit($this->views_counter, 3);
+    }
+
+    public function scopeOfTag(Builder $query, $tag): Builder
+    {
+        if ($tag instanceof Tag) {
+            return $query->whereHas('tags',function (Builder $query) use ($tag){
+                $query->where('tags.name', $tag->name);
+            });
+        }
+        return $query->whereHas('tags',function (Builder $query) use ($tag){
+            $query->where('tags.name', $tag->name);
+        });
+    }
+
+    public function scopeLatestWithTags(Builder $query)
+    {
+        return $query->with('tags')->latest();
     }
 
     public function tags(): BelongsToMany

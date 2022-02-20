@@ -8,7 +8,7 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
-        $posts = Post::query()->with('tags')->latest()->paginate(Post::SMALL_PAGINATE_SIZE);
+        $posts = Post::query()->latestWithTags()->paginate(Post::SMALL_PAGINATE_SIZE);
         return view('index', ['posts' => $posts]);
     }
 }

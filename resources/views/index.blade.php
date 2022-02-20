@@ -4,13 +4,13 @@
 @endsection
 @section('content')
     @if($posts)
-        <div class="d-flex justify-content-around flex-wrap">
+        <div class="row">
             @foreach($posts as $post)
                 @include('widgets.post-card-mini', $post)
             @endforeach
         </div>
 
-        <div class="d-flex justify-content-center">
+        <div class="row">
             {!! $posts->links() !!}
         </div>
     @else
