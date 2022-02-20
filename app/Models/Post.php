@@ -49,6 +49,10 @@ class Post extends Model
 
     public const VIEWS_COUNTER_CACHE_TAG = 'POST_VIEWS';
 
+    public const SMALL_PAGINATE_SIZE = 6;
+    public const BIG_PAGINATE_SIZE = 10;
+
+
     protected $fillable = ['label', 'image_url', 'content', 'likes_counter', 'views_counter'];
 
     protected $appends = ['short_text'];

@@ -8,11 +8,9 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    const CHUNK_SIZE = 10;
-
     public function index()
     {
-        $posts = Post::query()->latest()->with('tags')->paginate(self::CHUNK_SIZE);
+        $posts = Post::query()->latest()->with('tags')->paginate(Post::BIG_PAGINATE_SIZE);
         $tags = Tag::all();
         return view('post-catalog', ['posts'=>$posts, 'tags'=>$tags]);
     }
